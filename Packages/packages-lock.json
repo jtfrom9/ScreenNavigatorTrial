@@ -7,6 +7,13 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.harumak.unityscreennavigator": {
+      "version": "https://github.com/Haruma-K/UnityScreenNavigator.git?path=/Assets/UnityScreenNavigator#1.5.3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f64a839b9eb49a011b78f358fdbb2bf9681d1908"
+    },
     "com.neuecc.unirx": {
       "version": "7.1.0",
       "depth": 0,

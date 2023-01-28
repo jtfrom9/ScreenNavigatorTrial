@@ -42,7 +42,8 @@
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0",
     "com.cysharp.unitask": "2.3.3",
-    "com.neuecc.unirx": "7.1.0"
+    "com.neuecc.unirx": "7.1.0",
+    "com.harumak.unityscreennavigator": "https://github.com/Haruma-K/UnityScreenNavigator.git?path=/Assets/UnityScreenNavigator#1.5.3"
   },
   "scopedRegistries": [
     {
