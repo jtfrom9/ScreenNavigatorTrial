@@ -17,8 +17,7 @@ public class InspectorAssetLoader : AssetLoaderObject, IAssetLoader
 {
     [SerializeField] GameObject? topPagePrefab;
     [SerializeField] GameObject? mainPagePrefab;
-
-    [SerializeField] Dictionary<string, GameObject?>? prefabs;
+    [SerializeField] GameObject? modalPrefab;
 
     private int _controlId = 0;
     public override AssetLoadHandle<T> Load<T>(string key)
@@ -80,6 +79,24 @@ public class InspectorAssetLoader : AssetLoaderObject, IAssetLoader
             if (mainPagePrefab is T)
             {
                 var result = (mainPagePrefab as T)!;
+                setter.SetResult(result);
+                setter.SetStatus(AssetLoadStatus.Success);
+                setter.SetPercentCompleteFunc(() => 1.0f);
+                setter.SetTask(Task.FromResult(result));
+                tcs.SetResult(result);
+                return handle;
+            }
+            else
+            {
+                var exception = new InvalidOperationException($"Requested asset（Key: {key}）was not found.");
+                setter.SetOperationException(exception);
+            }
+        }
+        else if (key == "SimpleModal")
+        {
+            if (modalPrefab is T)
+            {
+                var result = (modalPrefab as T)!;
                 setter.SetResult(result);
                 setter.SetStatus(AssetLoadStatus.Success);
                 setter.SetPercentCompleteFunc(() => 1.0f);
