@@ -32,7 +32,7 @@ public class MainPage : Page
         backButton.OnClickAsObservable().Subscribe(_ =>
         {
             // OnBack.OnNext(Unit.Default);
-            pageContainer.Pop(false);
+            pageContainer.Pop(playAnimation: true);
         }).AddTo(this);
     }
 
