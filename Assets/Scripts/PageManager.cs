@@ -10,15 +10,17 @@ using UnityEngine.UI;
 using UniRx;
 using Cysharp.Threading.Tasks;
 using UnityScreenNavigator.Runtime.Core.Page;
+using UnityScreenNavigator.Runtime.Core.Modal;
 using UnityScreenNavigator.Runtime.Foundation.AssetLoader;
 
 public class PageManager : MonoBehaviour, IPageContainerCallbackReceiver
 {
     [SerializeField] PageContainer? pageContainer;
+    [SerializeField] ModalContainer? modalContainer;
 
     async void Start()
     {
-        if (pageContainer == null)
+        if (pageContainer == null || modalContainer == null)
         {
             Debug.LogError("invalid");
             return;
@@ -48,6 +50,12 @@ public class PageManager : MonoBehaviour, IPageContainerCallbackReceiver
         }
         if(enterPage is MainPage) {
             var mainPage = (MainPage)enterPage;
+            mainPage.OnShowModal.Subscribe(async _ => {
+                if (modalContainer != null)
+                {
+                    await modalContainer.Push("SimpleModal", playAnimation: true, loadAsync: true).Task;
+                }
+            }).AddTo(this);
         }
     }
 

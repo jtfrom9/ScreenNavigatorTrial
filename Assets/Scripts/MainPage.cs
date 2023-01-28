@@ -29,6 +29,8 @@ public class MainPage : Page
         setup(backButton, showModelButton);
     }
 
+    public ISubject<Unit> OnShowModal = new Subject<Unit>();
+
     void setup(Button backButton, Button showModalButton)
     {
         PageContainer pageContainer = PageContainer.Of(transform);
@@ -40,7 +42,8 @@ public class MainPage : Page
         }).AddTo(this);
 
         showModalButton.OnClickAsObservable().Subscribe(async _ => {
-            await ModalContainer.Of(transform).Push("SimpleModal", playAnimation: true, loadAsync: true).Task;
+            // await ModalContainer.Of(transform).Push("SimpleModal", playAnimation: true, loadAsync: true).Task;
+            OnShowModal.OnNext(Unit.Default);
         }).AddTo(this);
     }
 
