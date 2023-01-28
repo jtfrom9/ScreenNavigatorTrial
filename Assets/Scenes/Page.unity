@@ -479,6 +479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pageContainer: {fileID: 483551088}
+  topPagePrefab: {fileID: 7502449417662357062, guid: d54cfc58a7835a943b5279a797e510c6, type: 3}
+  mainPagePrefab: {fileID: 7968230199408532102, guid: e1a8270a0917ae54d9db93c0b8cefe37, type: 3}
 --- !u!1 &2020650600
 GameObject:
   m_ObjectHideFlags: 0
