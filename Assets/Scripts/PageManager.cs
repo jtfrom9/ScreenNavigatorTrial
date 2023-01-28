@@ -27,7 +27,7 @@ public class PageManager : MonoBehaviour, IPageContainerCallbackReceiver
         }
         pageContainer.AddCallbackReceiver(this);
 
-        await pageContainer.Push($"Prefabs/TopPage", playAnimation: false, loadAsync: true).Task;
+        await pageContainer.Push($"TopPage", playAnimation: false, loadAsync: true).Task;
         //     await pageContainer.Push($"Prefabs/TopPage", true, loadAsync: true, onLoad: page =>
         //     {
         //         page.AddLifecycleEvent(initialize: UniTask.ToCoroutine(() => UniTask.FromResult<Page>(page)));
@@ -45,7 +45,7 @@ public class PageManager : MonoBehaviour, IPageContainerCallbackReceiver
         if(enterPage is TopPage) {
             var topPage = (TopPage)enterPage;
             topPage.OnClick.Subscribe(async _ => {
-                await pageContainer.Push("Prefabs/MainPage", playAnimation: true, loadAsync: true).Task;
+                await pageContainer.Push("MainPage", playAnimation: true, loadAsync: true).Task;
             }).AddTo(this);
         }
         if(enterPage is MainPage) {

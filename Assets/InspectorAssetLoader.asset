@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514c1f53088d2eb41b1a411055bba6ae, type: 3}
   m_Name: InspectorAssetLoader
   m_EditorClassIdentifier: 
-  topPagePrefab: {fileID: 7502449417662357062, guid: d54cfc58a7835a943b5279a797e510c6, type: 3}
-  mainPagePrefab: {fileID: 7968230199408532102, guid: e1a8270a0917ae54d9db93c0b8cefe37, type: 3}
-  modalPrefab: {fileID: 7282964469585596123, guid: 40cb4aea41a836f4aaee8fe15a2606eb, type: 3}
+  prefabs:
+  - {fileID: 7502449417662357062, guid: d54cfc58a7835a943b5279a797e510c6, type: 3}
+  - {fileID: 7968230199408532102, guid: e1a8270a0917ae54d9db93c0b8cefe37, type: 3}
+  - {fileID: 7282964469585596123, guid: 40cb4aea41a836f4aaee8fe15a2606eb, type: 3}
+  - {fileID: 1625378374182110109, guid: e789c54dd604fa0439fbb37ad21d51bb, type: 3}

@@ -1,6 +1,7 @@
 #nullable enable
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,9 +16,7 @@ using UnityScreenNavigator.Runtime.Foundation.AssetLoader;
 [CreateAssetMenu(fileName = "InspectorAssetLoader", menuName = "Resource Loader/Inspector Asset Loader")]
 public class InspectorAssetLoader : AssetLoaderObject, IAssetLoader
 {
-    [SerializeField] GameObject? topPagePrefab;
-    [SerializeField] GameObject? mainPagePrefab;
-    [SerializeField] GameObject? modalPrefab;
+    [SerializeField] List<GameObject?> prefabs = new();
 
     private int _controlId = 0;
     public override AssetLoadHandle<T> Load<T>(string key)
@@ -28,19 +27,9 @@ public class InspectorAssetLoader : AssetLoaderObject, IAssetLoader
 
         if (key == "Prefabs/TopPage")
         {
-            if (topPagePrefab is T)
-            {
-                var result = (topPagePrefab as T)!;
-                setter.SetResult(result);
-                setter.SetStatus(AssetLoadStatus.Success);
-                setter.SetPercentCompleteFunc(() => 1.0f);
-                setter.SetTask(Task.FromResult(result));
-            }
-            else
-            {
-                var exception = new InvalidOperationException($"Requested asset（Key: {key}）was not found.");
-                setter.SetOperationException(exception);
-            }
+            var exception = new InvalidOperationException($"Requested asset（Key: {key}）was not found.");
+            setter.SetOperationException(exception);
+
         }
         else
         {
@@ -56,11 +45,10 @@ public class InspectorAssetLoader : AssetLoaderObject, IAssetLoader
         var setter = (IAssetLoadHandleSetter<T>)handle;
         var tcs = new TaskCompletionSource<T>();
 
-        if (key == "Prefabs/TopPage")
+        foreach(var prefab in prefabs.Where(p => p!=null))
         {
-            if (topPagePrefab is T)
-            {
-                var result = (topPagePrefab as T)!;
+            if(prefab!.name==key) {
+                var result = (prefab as T)!;
                 setter.SetResult(result);
                 setter.SetStatus(AssetLoadStatus.Success);
                 setter.SetPercentCompleteFunc(() => 1.0f);
@@ -68,55 +56,9 @@ public class InspectorAssetLoader : AssetLoaderObject, IAssetLoader
                 tcs.SetResult(result);
                 return handle;
             }
-            else
-            {
-                var exception = new InvalidOperationException($"Requested asset（Key: {key}）was not found.");
-                setter.SetOperationException(exception);
-            }
         }
-        else if (key == "Prefabs/MainPage")
-        {
-            if (mainPagePrefab is T)
-            {
-                var result = (mainPagePrefab as T)!;
-                setter.SetResult(result);
-                setter.SetStatus(AssetLoadStatus.Success);
-                setter.SetPercentCompleteFunc(() => 1.0f);
-                setter.SetTask(Task.FromResult(result));
-                tcs.SetResult(result);
-                return handle;
-            }
-            else
-            {
-                var exception = new InvalidOperationException($"Requested asset（Key: {key}）was not found.");
-                setter.SetOperationException(exception);
-            }
-        }
-        else if (key == "SimpleModal")
-        {
-            if (modalPrefab is T)
-            {
-                var result = (modalPrefab as T)!;
-                setter.SetResult(result);
-                setter.SetStatus(AssetLoadStatus.Success);
-                setter.SetPercentCompleteFunc(() => 1.0f);
-                setter.SetTask(Task.FromResult(result));
-                tcs.SetResult(result);
-                return handle;
-            }
-            else
-            {
-                var exception = new InvalidOperationException($"Requested asset（Key: {key}）was not found.");
-                setter.SetOperationException(exception);
-            }
-        }
-        else
-        {
-            // setter.SetResult(null);
-            setter.SetStatus(AssetLoadStatus.Failed);
-            setter.SetOperationException(new InvalidOperationException($"Requested asset（Key: {key}）was not found."));
-            // tcs.SetResult(null);
-        }
+        setter.SetStatus(AssetLoadStatus.Failed);
+        setter.SetOperationException(new InvalidOperationException($"Requested asset（Key: {key}）was not found."));
         return handle;
     }
 
